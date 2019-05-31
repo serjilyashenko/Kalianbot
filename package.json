@@ -2,6 +2,10 @@
   "name": "kalianobot",
   "version": "0.0.1",
   "description": "Telegram bot for hookah chats",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/serjilyashenko/Kalianbot"
+  },
   "main": "index.js",
   "author": "serj.ilyashenko@gmail.com",
   "license": "MIT",
