@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "description": "Telegram bot for hookah chats",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/serjilyashenko/Kalianbot"
+    "type": "git",
+    "url": "https://github.com/serjilyashenko/Kalianbot"
   },
   "main": "index.js",
   "author": "serj.ilyashenko@gmail.com",
@@ -16,7 +16,9 @@
   },
   "dependencies": {
     "@types/node": "^12.0.4",
+    "dotenv": "^8.0.0",
     "nodemon": "^1.19.1",
+    "telegraf": "^3.29.0",
     "ts-node": "^8.2.0",
     "tslint": "^5.17.0",
     "typescript": "^3.5.1"
