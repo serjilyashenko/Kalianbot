@@ -1,5 +1,6 @@
 import Telegraf, { ContextMessageUpdate } from 'telegraf';
-import { isAdminCommand } from './utils/is-admin';
+import { isAdmin, isAdminCommand } from './utils/is-admin';
+import fridayEvent from './utils/friday-event';
 
 const targetChatId: number = -396393497;
 
@@ -18,7 +19,6 @@ function replyOn(ctx: ContextMessageUpdate, command: string): void {
 export function initAdmin(bot: Telegraf<ContextMessageUpdate>) {
 
   bot.command('force', (ctx) => {
-    // ctx.reply(JSON.stringify(ctx.message, null, 2));
     if (!isAdminCommand(ctx) || !ctx.message) {
       return;
     }
@@ -28,6 +28,27 @@ export function initAdmin(bot: Telegraf<ContextMessageUpdate>) {
   });
 
   bot.command('ping', (ctx) => {
+    if (!isAdmin(ctx)) {
+      return;
+    }
     ctx.reply('Pong!\n' + JSON.stringify(ctx.message, null, 2));
+  });
+
+  bot.command('friday', (ctx) => {
+    if (!isAdminCommand(ctx) || !ctx.message) {
+      return;
+    }
+    fridayEvent.start(() => {
+      ctx.telegram.sendMessage(targetChatId, 'Пятничка! Пора бы и на калик!');
+    });
+    ctx.reply(`Status: ${fridayEvent.getStatus()}`);
+  });
+
+  bot.command('stopFriday', (ctx) => {
+    if (!isAdminCommand(ctx) || !ctx.message) {
+      return;
+    }
+    fridayEvent.stop();
+    ctx.reply(`Status: ${fridayEvent.getStatus()}`);
   });
 }

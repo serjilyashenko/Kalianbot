@@ -2,15 +2,19 @@ import { ContextMessageUpdate } from 'telegraf';
 import { User } from 'telegram-typings';
 import { adminId } from '../config';
 
-export function isAdminCommand(ctx: ContextMessageUpdate): boolean  {
+export function isAdmin(ctx: ContextMessageUpdate): boolean {
   const { message } = ctx;
   if (!message || !message.from) {
     return false;
   }
   const user: User = message.from;
 
-  const isAdmin = user.id === adminId;
-  const isPrivate = message.chat.type === 'private';
+  return user.id === adminId;
+}
 
-  return isAdmin && isPrivate;
+export function isAdminCommand(ctx: ContextMessageUpdate): boolean  {
+  if (!isAdmin(ctx) || !ctx.message) {
+    return false;
+  }
+  return ctx.message.chat.type === 'private';
 }
