@@ -1,5 +1,5 @@
 // tslint:disable-next-line
-require('dotenv').config();
+// require('dotenv').config();
 
 const { BOT_TOKEN = null, ADMIN_ID = '' } = process.env;
 
