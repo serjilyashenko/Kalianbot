@@ -1,14 +1,21 @@
-import Telegraf, { Markup } from 'telegraf';
+import { adminHelp } from './middlewares/help/admin-help';
+import Telegraf, { ContextMessageUpdate, Middleware } from 'telegraf';
 import { token } from './config';
-import name from './name';
+import { initAdmin } from './admin';
+import help from './middlewares/help/index';
+import { user } from './middlewares/user/is-user';
 
 const keyWords = {
   kalik: ['кальян', 'калик'],
 };
 
+const targetChatId: number = -396393497;
+
 const bot = new Telegraf(token);
-bot.start((ctx) => ctx.reply('Welcome'));
-bot.help((ctx) => ctx.reply('Send me a sticker'));
+bot.start((ctx) => ctx.reply('I\'m Kalik! Happy to be here!'));
+bot.help(user, ...help);
+initAdmin(bot);
+
 bot.on('sticker', (ctx) => {
   const isCool = Math.random() * 100 > 80;
   if (!isCool) {
@@ -16,6 +23,7 @@ bot.on('sticker', (ctx) => {
   }
   ctx.reply('Классный стикер! Ты молодец 👍');
 });
+
 bot.hears(['hi', 'hi1'], (ctx) => ctx.reply('Hey there'));
 bot.on('text', (ctx) => {
   const { message } = ctx;
@@ -32,4 +40,4 @@ bot.on('text', (ctx) => {
 });
 bot.launch();
 
-console.log(`>> ${name} - Telegram bot started!`);
+console.log('>> Kalik - Telegram bot started!');
