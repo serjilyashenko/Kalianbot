@@ -1,8 +1,8 @@
 import Telegraf, { ContextMessageUpdate } from 'telegraf';
 import { isAdmin, isAdminCommand } from './utils/is-admin';
 import fridayEvent from './utils/friday-event';
-
-const targetChatId: number = -396393497;
+import { admin } from './middlewares/user/admin-command';
+import { chatId } from './config';
 
 function replyOn(ctx: ContextMessageUpdate, command: string): void {
   const text: string = command.split(' ').slice(1).join(' ');
@@ -12,17 +12,16 @@ function replyOn(ctx: ContextMessageUpdate, command: string): void {
     return;
   }
 
-  ctx.telegram.sendMessage(targetChatId, text);
+  ctx.telegram.sendMessage(chatId, text);
   ctx.reply('It was sent Boss!');
 }
 
 export function initAdmin(bot: Telegraf<ContextMessageUpdate>) {
 
-  bot.command('force', (ctx) => {
-    if (!isAdminCommand(ctx) || !ctx.message) {
+  bot.command('force', admin, (ctx) => {
+    if (!ctx.message) {
       return;
     }
-
     const command: string = ctx.message.text || '';
     replyOn(ctx, command);
   });
@@ -34,20 +33,14 @@ export function initAdmin(bot: Telegraf<ContextMessageUpdate>) {
     ctx.reply('Pong!\n' + JSON.stringify(ctx.message, null, 2));
   });
 
-  bot.command('friday', (ctx) => {
-    if (!isAdminCommand(ctx) || !ctx.message) {
-      return;
-    }
+  bot.command('friday', admin, (ctx) => {
     fridayEvent.start(() => {
-      ctx.telegram.sendMessage(targetChatId, 'Пятничка! Пора бы и на калик!');
+      ctx.telegram.sendMessage(chatId, 'Пятничка! Пора бы и на калик!');
     });
     ctx.reply(`Status: ${fridayEvent.getStatus()}`);
   });
 
-  bot.command('stopFriday', (ctx) => {
-    if (!isAdminCommand(ctx) || !ctx.message) {
-      return;
-    }
+  bot.command('stopFriday', admin, (ctx) => {
     fridayEvent.stop();
     ctx.reply(`Status: ${fridayEvent.getStatus()}`);
   });

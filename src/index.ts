@@ -1,4 +1,4 @@
-import Telegraf, { ContextMessageUpdate, Middleware } from 'telegraf';
+import Telegraf from 'telegraf';
 import { token } from './config';
 import { initAdmin } from './admin';
 import help from './middlewares/help/index';
@@ -11,9 +11,21 @@ const keyWords = {
 const bot = new Telegraf(token);
 bot.start((ctx) => ctx.reply('I\'m Kalik! Happy to be here!'));
 bot.help(user, ...help);
+
 initAdmin(bot);
 
 bot.on('sticker', (ctx) => {
+  if (ctx.message && ctx.message.sticker) {
+    const chatId: number =  ctx.chat ? ctx.chat.id : 0;
+    const emoji = ctx.message.sticker.emoji;
+    if (emoji === '😂') {
+      setTimeout(async () => {
+        ctx.telegram.sendSticker(chatId, 'CAADAgADKAEAAhAhAhDAvwoGOaBz2wI');
+      }, 1000);
+      return;
+    }
+  }
+
   const isCool = Math.random() * 100 > 80;
   if (!isCool) {
     return;
@@ -22,10 +34,12 @@ bot.on('sticker', (ctx) => {
 });
 
 bot.hears(['привет', 'Привет'], (ctx) => ctx.reply('Салют! Может на кальян?'));
-bot.hears(['погнали', 'Погнали'], (ctx) => ctx.reply('На кальян?'));
+bot.hears(['погнали', 'Погнали'], (ctx) => ctx.reply('А кальян будет?'));
+bot.hears(['пыхнуть', 'пыхтеть', 'пыхать', 'Пыхнуть', 'Пыхтеть'], (ctx) => ctx.reply('Надымим, как паровоз!'));
 
 bot.on('text', (ctx) => {
   const { message } = ctx;
+  const isMode1 = Math.random() * 100 > 80;
   if (!message || !message.text) {
     return;
   }
@@ -34,8 +48,11 @@ bot.on('text', (ctx) => {
     return;
   }
   const sender = message.from ? message.from.first_name : 'Бро';
-  ctx.reply(`Привет, ${sender}!`);
-  ctx.reply('Я Калик! Хочешь попыхтеть?');
+  if (isMode1) {
+    ctx.reply(`Привет, ${sender}! \nЯ Калик! Хочешь попыхтеть?`);
+  } else {
+    ctx.reply('Бабуляяя! Извини меня! Я снова разбил твою любимую вазу. Ну за@бись... Третий кальян за неделю!');
+  }
 });
 
 bot.launch();

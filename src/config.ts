@@ -11,8 +11,10 @@ if (!envToken) {
 
 export const token: string = envToken;
 export const adminId: number = ADMIN_ID ? Number(ADMIN_ID) : -1;
+export const chatId: number = -396393497;
 
 export default {
   adminId,
   token,
+  chatId,
 };
