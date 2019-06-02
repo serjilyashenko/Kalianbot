@@ -1,3 +1,4 @@
+import express from 'express';
 import Telegraf from 'telegraf';
 import { token } from './config';
 import { initAdmin } from './admin';
@@ -53,6 +54,15 @@ bot.on('text', (ctx) => {
   } else {
     ctx.reply('Бабуляяя! Извини меня! Я снова разбил твою любимую вазу. Ну за@бись... Третий кальян за неделю!');
   }
+});
+
+const expressApp = express();
+const port = process.env.PORT || 3000
+expressApp.get('/', (req, res) => {
+  res.send('Kalik bot lives here :)');
+});
+expressApp.listen(port, () => {
+  console.log(`Listening on port ${port}`);
 });
 
 bot.launch();
