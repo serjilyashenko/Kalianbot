@@ -1,8 +1,6 @@
 # Kalianbot
 Telegram bot for hookah chats
 
-Before using you need to get bot token for Telegram Bot API access. You should add file .env to project
-
 ## Table of Contents
 
 - [Installation](#instalation)
