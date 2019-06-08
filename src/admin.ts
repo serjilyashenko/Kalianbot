@@ -33,15 +33,13 @@ export function initAdmin(bot: Telegraf<ContextMessageUpdate>) {
     ctx.reply('Pong!\n' + JSON.stringify(ctx.message, null, 2));
   });
 
-  bot.command('friday', admin, (ctx) => {
-    fridayEvent.start(() => {
-      ctx.telegram.sendMessage(chatId, 'Пятничка! Пора бы и на калик!');
-    });
+  bot.command('friday', admin, async (ctx) => {
+    await fridayEvent.start();
     ctx.reply(`Status: ${fridayEvent.getStatus()}`);
   });
 
-  bot.command('stopFriday', admin, (ctx) => {
-    fridayEvent.stop();
+  bot.command('stopFriday', admin, async (ctx) => {
+    await fridayEvent.stop();
     ctx.reply(`Status: ${fridayEvent.getStatus()}`);
   });
 }
