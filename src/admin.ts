@@ -1,5 +1,5 @@
 import Telegraf, { ContextMessageUpdate } from 'telegraf';
-import { isAdmin, isAdminCommand } from './utils/is-admin';
+import { isAdmin } from './utils/is-admin';
 import fridayEvent from './utils/friday-event';
 import { admin } from './middlewares/user/admin-command';
 import { chatId } from './config';

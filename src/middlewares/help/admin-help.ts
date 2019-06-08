@@ -7,7 +7,6 @@ export const adminHelp: Middleware<ContextMessageUpdate> = (ctx: ContextMessageU
   if (isAdminCommand(ctx)) {
     ctx.reply(`
     Hello Boss!
-    I'm alive!
 
     /force - I'll forward your message
 
