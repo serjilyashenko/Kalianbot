@@ -47,7 +47,8 @@ class FridaySchedule {
     this.clearTimer();
     if (this.isActive) {
       this.timer = setTimeout(this.schedule.bind(this), hour);
-      if (new Date().getHours() === 18) {
+      const now = new Date();
+      if (now.getHours() === 13 && now.getDay() === 5) {
         this.cb();
       }
     } else {
