@@ -8,14 +8,14 @@ class DB {
     const dbSet: any = await this.readDB() || {};
 
     if (!dbSet || !dbSet.hasOwnProperty(key)) {
-      throw new Error(`>> The ${key} not found in the DataBase`);
+      return null;
     }
 
     return dbSet[key];
   }
 
   public async writeTo(key: string, value: any) {
-    const data = await this.readFrom(key) as object;
+    const data = await this.readDB() as object;
     this.writeDB({ ...data, [key]: value });
   }
 
