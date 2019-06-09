@@ -1,1 +1,18 @@
-{"lastStickerDate":null,"fridayMode":true}
+{
+  "lastStickerDate": 1560108328441,
+  "fridayMode": true,
+  "chats": [
+    {
+      "id": -396393497,
+      "title": "Kalik Dev",
+      "type": "group",
+      "all_members_are_administrators": true
+    },
+    {
+      "id": -399740046,
+      "title": "Kalik Dev 2",
+      "type": "group",
+      "all_members_are_administrators": true
+    }
+  ]
+}

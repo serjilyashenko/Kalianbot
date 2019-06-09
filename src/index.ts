@@ -1,5 +1,6 @@
 import express from 'express';
 import Telegraf from 'telegraf';
+import chats from './utils/chats';
 import { token } from './config';
 import { initAdmin } from './admin';
 import help from './middlewares/help/index';
@@ -15,7 +16,14 @@ const keyWords = {
 };
 
 export const bot = new Telegraf(token);
-bot.start((ctx) => ctx.reply('I\'m Kalik! Happy to be here!'));
+bot.start((ctx) => {
+  ctx.reply('I\'m Kalik! Happy to be here!');
+  const { message } = ctx;
+  if (!message || !message.chat) {
+    return;
+  }
+  chats.addChat(message.chat);
+});
 bot.help(user, ...help);
 
 initAdmin(bot);

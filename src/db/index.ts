@@ -21,7 +21,7 @@ class DB {
 
   private writeDB(payload: object) {
     return new Promise((resolve) => {
-      fs.writeFile(path.join(__dirname, this.path), JSON.stringify(payload), 'utf8', () => resolve());
+      fs.writeFile(path.join(__dirname, this.path), JSON.stringify(payload, null, 2), 'utf8', () => resolve());
     });
   }
 

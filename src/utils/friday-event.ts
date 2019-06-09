@@ -1,7 +1,8 @@
 import db from '../db/index';
 import { bot } from '..';
-import { chatId } from '../config';
 import { getAny } from './get-any';
+import chats from './chats';
+import { Chat } from 'telegram-typings';
 
 const fridayMessages = [
   'Сегодня пятничка) Я ни на что не намекаю 😉',
@@ -22,10 +23,16 @@ type Timer = ReturnType<typeof setTimeout> | null;
 class FridaySchedule {
   private isActive: boolean = false;
   private timer: Timer = null;
-  private cb: () => void = () => bot.telegram.sendMessage(chatId, this.getAnyMessage());;
 
   constructor() {
     this.init();
+  }
+
+  private async cb() {
+    const chatList = await chats.fetchAll() || [];
+    chatList.forEach((c: Chat) => {
+      bot.telegram.sendMessage(c.id, this.getAnyMessage());
+    });
   }
 
   private async init() {
