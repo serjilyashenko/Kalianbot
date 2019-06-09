@@ -1,6 +1,7 @@
 import db from '../db/index';
 import { bot } from '..';
 import { chatId } from '../config';
+import { getAny } from './get-any';
 
 const fridayMessages = [
   'Сегодня пятничка) Я ни на что не намекаю 😉',
@@ -33,8 +34,7 @@ class FridaySchedule {
   }
 
   private getAnyMessage() {
-    const index: number = Math.floor(Math.random() * fridayMessages.length);
-    return fridayMessages[index];
+    return getAny(fridayMessages);
   }
 
   public getStatus() {

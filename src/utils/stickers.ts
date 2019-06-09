@@ -1,4 +1,5 @@
 import db from '../db/index';
+import { getAny } from './get-any';
 
 const STICKER_DELAY = 10 * 60 * 1000; // 10min
 
@@ -24,8 +25,7 @@ const laughStickers = [
 ];
 
 export const getAnySticker = (): string => {
-  const index: number = Math.floor(Math.random() * laughStickers.length);
-  return laughStickers[index];
+  return getAny(laughStickers);
 };
 
 export const setStickerDate = (date?: Date) => {

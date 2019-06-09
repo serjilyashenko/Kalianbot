@@ -5,12 +5,13 @@ import { initAdmin } from './admin';
 import help from './middlewares/help/index';
 import { user } from './middlewares/user/is-user';
 import { stickers } from './middlewares/messages/stickers';
+import { getAny } from './utils/get-any';
 
 const keyWords = {
   go: ['погнали', 'Погнали', 'пошли', 'Пошли', 'Гоу', 'гоу', 'гоним', 'Гоним'],
   greeting: ['привет', 'Привет', 'Йо', 'Yo', 'hello', 'hey', 'hi'],
   kalik: ['кальян', 'калик'],
-  smoke: ['пыхнуть', 'пыхтеть', 'пыхать', 'Пыхнуть', 'Пыхтеть', 'попыхтеть', 'Попыхтеть', 'попыхтим', 'Попыхтим'],
+  smoke: ['пыхнуть', 'пыхтеть', 'пыхать', 'Пыхнуть', 'Пыхтеть', 'попыхтеть', 'Попыхтеть', 'покурить', 'покальянить', 'попускать дым'],
 };
 
 export const bot = new Telegraf(token);
@@ -35,7 +36,9 @@ bot.on('text', (ctx) => {
     return;
   }
   const sender = message.from ? message.from.first_name : 'Бро';
-  ctx.reply(`${sender}! Хочешь попыхтеть?`);
+  const smoke = getAny(keyWords.smoke);
+
+  ctx.reply(`${sender}! И ты тоже хочешь ${smoke}?`);
 });
 
 const expressApp = express();
