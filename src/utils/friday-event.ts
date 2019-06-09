@@ -2,12 +2,26 @@ import db from '../db/index';
 import { bot } from '..';
 import { chatId } from '../config';
 
+const fridayMessages = [
+  'Сегодня пятничка) Я ни на что не намекаю 😉',
+  'Пятничка! Погнали вечером на калик?',
+  'Пятничка! Может, на калик?',
+  'Напоминаю, что сегодня пятница.',
+  'Пойдем на калик?',
+  'Напоминаю про пятничный калик!',
+  'Никто не забыл, что сегодня пятница?',
+  'Калик уже стынет',
+  'Пойдем на калик? Надо бы забронить заранее, сегодня ж пятница.',
+  'На калик вечером?',
+  'Никто не хочет вечером на калик?',
+];
+
 type Timer = ReturnType<typeof setTimeout> | null;
 
 class FridaySchedule {
   private isActive: boolean = false;
   private timer: Timer = null;
-  private cb: () => void = () => bot.telegram.sendMessage(chatId, 'Пятничка! Пора бы и на калик!');;
+  private cb: () => void = () => bot.telegram.sendMessage(chatId, this.getAnyMessage());;
 
   constructor() {
     this.init();
@@ -16,6 +30,11 @@ class FridaySchedule {
   private async init() {
     const isFriday = await db.readFrom('fridayMode');
     isFriday ? this.start() : this.stop();
+  }
+
+  private getAnyMessage() {
+    const index: number = Math.floor(Math.random() * fridayMessages.length);
+    return fridayMessages[index];
   }
 
   public getStatus() {

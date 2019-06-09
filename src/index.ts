@@ -7,7 +7,10 @@ import { user } from './middlewares/user/is-user';
 import { stickers } from './middlewares/messages/stickers';
 
 const keyWords = {
+  go: ['погнали', 'Погнали', 'пошли', 'Пошли', 'Гоу', 'гоу', 'гоним', 'Гоним'],
+  greeting: ['привет', 'Привет', 'Йо', 'Yo', 'hello', 'hey', 'hi'],
   kalik: ['кальян', 'калик'],
+  smoke: ['пыхнуть', 'пыхтеть', 'пыхать', 'Пыхнуть', 'Пыхтеть', 'попыхтеть', 'Попыхтеть', 'попыхтим', 'Попыхтим'],
 };
 
 export const bot = new Telegraf(token);
@@ -18,13 +21,12 @@ initAdmin(bot);
 
 bot.on('sticker', stickers);
 
-bot.hears(['привет', 'Привет', 'Йо', 'Yo'], (ctx) => ctx.reply('Салют! Может на кальян?'));
-bot.hears(['погнали', 'Погнали'], (ctx) => ctx.reply('А кальян будет?'));
-bot.hears(['пыхнуть', 'пыхтеть', 'пыхать', 'Пыхнуть', 'Пыхтеть'], (ctx) => ctx.reply('Надымим, как паровоз!'));
+bot.hears(keyWords.greeting, (ctx) => ctx.reply('Салют! Может на кальян? Кто хочешь попыхтеть?'));
+bot.hears(keyWords.go, (ctx) => ctx.reply('Go Флексить. Калик всегда за движуху.'));
+bot.hears(keyWords.smoke, (ctx) => ctx.reply('Забымим все, как паровоз!'));
 
 bot.on('text', (ctx) => {
   const { message } = ctx;
-  const isMode1 = Math.random() * 100 > 80;
   if (!message || !message.text) {
     return;
   }
@@ -33,11 +35,7 @@ bot.on('text', (ctx) => {
     return;
   }
   const sender = message.from ? message.from.first_name : 'Бро';
-  if (isMode1) {
-    ctx.reply(`Привет, ${sender}! \nЯ Калик! Хочешь попыхтеть?`);
-  } else {
-    ctx.reply('Бабуляяя! Извини меня! Я снова разбил твою любимую вазу. Ну за@бись... Третий кальян за неделю!');
-  }
+  ctx.reply(`${sender}! Хочешь попыхтеть?`);
 });
 
 const expressApp = express();
