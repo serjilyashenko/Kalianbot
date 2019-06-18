@@ -13,6 +13,12 @@
       "title": "Kalik Dev 2",
       "type": "group",
       "all_members_are_administrators": true
+    },
+    {
+      "id": -300377048,
+      "title": "Пить и курить 2.0",
+      "type": "group",
+      "all_members_are_administrators": true
     }
   ]
 }
