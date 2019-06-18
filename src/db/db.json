@@ -1,5 +1,5 @@
 {
-  "lastStickerDate": 1560108328441,
+  "lastStickerDate": 1560891218531,
   "fridayMode": true,
   "chats": [
     {
@@ -20,5 +20,32 @@
       "type": "group",
       "all_members_are_administrators": true
     }
-  ]
+  ],
+  "timers": {
+    "go": {
+      "id": "go",
+      "delay": 10000,
+      "lastEvent": 1560890281489
+    },
+    "greeting": {
+      "id": "greeting",
+      "delay": 600000,
+      "lastEvent": 1560891371866
+    },
+    "kalik": {
+      "id": "kalik",
+      "delay": 600000,
+      "lastEvent": 1560891224597
+    },
+    "smoke": {
+      "id": "smoke",
+      "delay": 600000,
+      "lastEvent": 1560891181638
+    },
+    "wrong_kalik": {
+      "id": "wrong_kalik",
+      "delay": 600000,
+      "lastEvent": 1560891229122
+    }
+  }
 }
