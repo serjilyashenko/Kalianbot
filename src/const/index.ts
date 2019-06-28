@@ -18,7 +18,7 @@ export const TEXTs: ITextCategory[] = [
   {
     delay: 10 * MINUTE,
     id: 'go',
-    keys: ['погнали', 'пошли', 'гоу', 'гоним', 'go'],
+    keys: ['погнали', 'пошли', 'гоу', 'гоним'],
     responses: [
       'Go Флексить. Я всегда за движуху.',
       (user: string) => `${user}, клевая идея! А кальян будет?`,
@@ -38,7 +38,7 @@ export const TEXTs: ITextCategory[] = [
   {
     delay: 10 * MINUTE,
     id: 'greeting',
-    keys: ['привет', 'йо', 'yo', 'hello', 'hey', 'hi', 'хеллоу', 'здаров', 'здоров'],
+    keys: ['привет', 'йо', 'yo', 'hello', 'hey', 'хеллоу', 'здаров', 'здоров'],
     responses: [
       'Салют! Может на кальян? Кто хочет попыхтеть?',
       'Привет! Хочешь на кальян позвать',

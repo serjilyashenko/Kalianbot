@@ -22,9 +22,9 @@ bot.help(user, ...help);
 
 initAdmin(bot);
 
-bot.on('sticker', stickers);
+// bot.on('sticker', stickers);
 
-bot.on('text', text);
+// bot.on('text', text);
 
 const expressApp = express();
 const port = process.env.PORT || 3000;
